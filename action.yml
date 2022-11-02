@@ -29,7 +29,7 @@ runs:
       uses: webfactory/ssh-agent@v0.5.4
       with:
         ssh-private-key: ${{ inputs.deploy-key }}
-    - name: Merge Code from ${{ inputs..directory }} to github.com:${{ inputs.username }}/${{ inputs.repository }}.git
+    - name: Merge Code from ${{ inputs.directory }} to github.com:${{ inputs.username }}/${{ inputs.repository }}.git
       run: entrypoint.sh ${{ inputs.username }} ${{ inputs.repository }} ${{ inputs.branch }} ${{ inputs.directory }} ${{ inputs.filter }}
       shell: bash
 

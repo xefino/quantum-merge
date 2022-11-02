@@ -1,5 +1,6 @@
 name: 'Quantum Merge'
 description: 'Allows merging code from a given directory to a given repository'
+
 inputs:
   deploy-key:
     description: 'SSH key to use for GitHub deployments'
@@ -20,6 +21,7 @@ inputs:
   filter:
     description: 'The filter to apply to files cloned from the desination repository in order to merge changes'
     required: true
+
 runs:
   using: "composite"
   steps:
@@ -30,3 +32,7 @@ runs:
     - name: Merge Code from ${{ inputs..directory }} to github.com:${{ inputs.username }}/${{ inputs.repository }}.git
       run: entrypoint.sh ${{ inputs.username }} ${{ inputs.repository }} ${{ inputs.branch }} ${{ inputs.directory }} ${{ inputs.filter }}
       shell: bash
+
+branding:
+  icon: git-commit
+  color: blue

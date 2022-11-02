@@ -30,7 +30,12 @@ runs:
       with:
         ssh-private-key: ${{ inputs.deploy-key }}
     - name: Merge Code from ${{ inputs.directory }} to github.com:${{ inputs.username }}/${{ inputs.repository }}.git
-      run: entrypoint.sh ${{ inputs.username }} ${{ inputs.repository }} ${{ inputs.branch }} ${{ inputs.directory }} ${{ inputs.filter }}
+      run: $GITHUB_ACTION_PATH/entrypoint.sh \
+              ${{ inputs.username }} \
+              ${{ inputs.repository }} \
+              ${{ inputs.branch }} \
+              ${{ inputs.directory }} \
+              ${{ inputs.filter }}
       shell: bash
 
 branding:

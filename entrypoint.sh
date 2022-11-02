@@ -4,6 +4,7 @@ REPOSITORY=$2
 BRANCH=$3
 DIRECTORY=$4
 FILTER=$5
+MESSAGE=$6
 
 CLONE_DIR=$(mktemp -d)
 GIT_CMD_REPOSITORY="git@github.com:$USERNAME/$REPOSITORY.git"
@@ -34,7 +35,7 @@ echo "[+] git status:"
 git status
 
 echo "[+] git diff-index:"
-git diff-index --quiet HEAD || git commit -m "${{ github.event.head_commit.message }}"
+git diff-index --quiet HEAD || git commit -m "$MESSAGE"
 
 echo "[+] Pushing git commit"
 git push "$GIT_CMD_REPOSITORY" --set-upstream $BRANCH

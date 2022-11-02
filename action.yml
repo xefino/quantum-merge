@@ -21,6 +21,10 @@ inputs:
   filter:
     description: 'The filter to apply to files cloned from the desination repository in order to merge changes'
     required: true
+  commit-message:
+    description: 'The message to associate with the commit'
+    required: false
+    default: ${{ github.event.head_commit.message }}
 
 runs:
   using: "composite"
@@ -30,7 +34,7 @@ runs:
       with:
         ssh-private-key: ${{ inputs.deploy-key }}
     - name: Merge Code from ${{ inputs.directory }} to github.com:${{ inputs.username }}/${{ inputs.repository }}.git
-      run: $GITHUB_ACTION_PATH/entrypoint.sh ${{ inputs.username }} ${{ inputs.repository }} ${{ inputs.branch }} ${{ inputs.directory }} ${{ inputs.filter }}
+      run: $GITHUB_ACTION_PATH/entrypoint.sh ${{ inputs.username }} ${{ inputs.repository }} ${{ inputs.branch }} ${{ inputs.directory }} ${{ inputs.filter }} ${{ inputs.commit-message }}
       shell: bash
 
 branding:

@@ -34,7 +34,7 @@ runs:
       with:
         ssh-private-key: ${{ inputs.deploy-key }}
     - name: Merge Code from ${{ inputs.directory }} to github.com:${{ inputs.username }}/${{ inputs.repository }}.git
-      run: $GITHUB_ACTION_PATH/entrypoint.sh ${{ inputs.username }} ${{ inputs.repository }} ${{ inputs.branch }} ${{ inputs.directory }} ${{ inputs.filter }} ${{ inputs.commit-message }}
+      run: $GITHUB_ACTION_PATH/entrypoint.sh "${{ inputs.username }}" "${{ inputs.repository }}" "${{ inputs.branch }}" "${{ inputs.directory }}" "${{ inputs.filter }}" "${{ inputs.commit-message }}"
       shell: bash
 
 branding:

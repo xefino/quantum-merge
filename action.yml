@@ -1,0 +1,32 @@
+name: 'Quantum Merge'
+description: 'Allows merging code from a given directory to a given repository'
+inputs:
+  deploy-key:
+    description: 'SSH key to use for GitHub deployments'
+    required: true
+  username:
+    description: 'GitHub user (or organization) associated for the destination repository'
+    required: true
+  repository:
+    description: 'Name of the destination repository'
+    required: true
+  branch:
+    description: 'Name of the branch the code should be pushed to'
+    required: false
+    default: 'main'
+  directory:
+    description: 'Name of the directory from which to perform the merge'
+    require: true
+  filter:
+    description: 'The filter to apply to files cloned from the desination repository in order to merge changes'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Configure Git Credentials
+      uses: webfactory/ssh-agent@v0.5.4
+      with:
+        ssh-private-key: ${{ inputs.deploy-key }}
+    - name: Merge Code from ${{ inputs..directory }} to github.com:${{ inputs.username }}/${{ inputs.repository }}.git
+      run: entrypoint.sh ${{ inputs.username }} ${{ inputs.repository }} ${{ inputs.branch }} ${{ inputs.directory }} ${{ inputs.filter }}
+      shell: bash

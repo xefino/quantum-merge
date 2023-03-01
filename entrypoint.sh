@@ -39,6 +39,7 @@ then
   cp -Rau "$DIRECTORY/." "$CLONE_DIR"
   cd "$CLONE_DIR"
 else
+  mkdir -p "$CLONE_DIR/$REMOTEDIR"
   cp -Rau "$DIRECTORY/." "$CLONE_DIR/$REMOTEDIR"
   cd "$CLONE_DIR/$REMOTEDIR"
 fi

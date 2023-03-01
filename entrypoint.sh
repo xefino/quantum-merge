@@ -19,17 +19,22 @@ echo "[+] Cloning destination git repository $GIT_CMD_REPOSITORY..."
 git clone --single-branch --depth 1 --branch "main" "$GIT_CMD_REPOSITORY" "$CLONE_DIR"
 
 echo "[+] Deleting existing Go files so changes will propagate..."
-find $CLONE_DIR -type f \( $FILTER \) -delete
+if [ -z $FILTER ]
+then
+  find $CLONE_DIR -type f -delete
+else
+  find $CLONE_DIR -type f \( $FILTER \) -delete
+fi
 
 echo "[+] Files that will be pushed"
 ls -la "$DIRECTORY/."
 if [ -z "$REMOTEDIR" ]
 then
-  cp -Rau "$DIRECTORY/." "$CLONE_DIR/$REMOTEDIR"
-  cd "$CLONE_DIR/$REMOTEDIR"
-else
   cp -Rau "$DIRECTORY/." "$CLONE_DIR"
   cd "$CLONE_DIR"
+else
+  cp -Rau "$DIRECTORY/." "$CLONE_DIR/$REMOTEDIR"
+  cd "$CLONE_DIR/$REMOTEDIR"
 fi
 
 echo "[+] Set directory is safe ($CLONE_DIR)"

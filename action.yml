@@ -17,7 +17,10 @@ inputs:
     default: 'main'
   directory:
     description: 'Name of the directory from which to perform the merge'
-    require: true
+    required: true
+  remote-directory:
+    description: 'Name of the directory which the data should be installed to'
+    required: false
   filter:
     description: 'The filter to apply to files cloned from the desination repository in order to merge changes'
     required: true
@@ -34,7 +37,7 @@ runs:
       with:
         ssh-private-key: ${{ inputs.deploy-key }}
     - name: Merge Code from ${{ inputs.directory }} to github.com:${{ inputs.username }}/${{ inputs.repository }}.git
-      run: $GITHUB_ACTION_PATH/entrypoint.sh "${{ inputs.username }}" "${{ inputs.repository }}" "${{ inputs.branch }}" "${{ inputs.directory }}" "${{ inputs.filter }}" "${{ inputs.commit-message }}"
+      run: $GITHUB_ACTION_PATH/entrypoint.sh "${{ inputs.username }}" "${{ inputs.repository }}" "${{ inputs.branch }}" "${{ inputs.directory }}" "${{ inputs.remote-directory }}" "${{ inputs.filter }}" "${{ inputs.commit-message }}"
       shell: bash
 
 branding:

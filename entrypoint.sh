@@ -3,8 +3,9 @@ USERNAME=$1
 REPOSITORY=$2
 BRANCH=$3
 DIRECTORY=$4
-FILTER=$5
-MESSAGE=$6
+REMOTEDIR=$5
+FILTER=$6
+MESSAGE=$7
 
 CLONE_DIR=$(mktemp -d)
 GIT_CMD_REPOSITORY="git@github.com:$USERNAME/$REPOSITORY.git"
@@ -22,8 +23,14 @@ find $CLONE_DIR -type f \( $FILTER \) -delete
 
 echo "[+] Files that will be pushed"
 ls -la "$DIRECTORY/."
-cp -Rau "$DIRECTORY/." "$CLONE_DIR"
-cd "$CLONE_DIR"
+if [ -z "$REMOTEDIR" ]
+then
+  cp -Rau "$DIRECTORY/." "$CLONE_DIR/$REMOTEDIR"
+  cd "$CLONE_DIR/$REMOTEDIR"
+else
+  cp -Rau "$DIRECTORY/." "$CLONE_DIR"
+  cd "$CLONE_DIR"
+fi
 
 echo "[+] Set directory is safe ($CLONE_DIR)"
 git config --global --add safe.directory "$CLONE_DIR"

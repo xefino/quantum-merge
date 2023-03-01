@@ -18,12 +18,18 @@ git config --global user.name "$(git log -n 1 --pretty=format:%an)"
 echo "[+] Cloning destination git repository $GIT_CMD_REPOSITORY..."
 git clone --single-branch --depth 1 --branch "main" "$GIT_CMD_REPOSITORY" "$CLONE_DIR"
 
+DEL_DIR="$CLONE_DIR"
+if [ -n "$REMOTEDIR" ]
+then
+  DEL_DIR="$CLONE_DIR/$REMOTEDIR"
+fi
+
 echo "[+] Deleting existing Go files so changes will propagate..."
 if [ -z $FILTER ]
 then
-  find $CLONE_DIR -type f -delete
+  find $DEL_DIR -type f -delete
 else
-  find $CLONE_DIR -type f \( $FILTER \) -delete
+  find $DEL_DIR -type f \( $FILTER \) -delete
 fi
 
 echo "[+] Files that will be pushed"

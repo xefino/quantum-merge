@@ -22,8 +22,10 @@ The name of the desintation repository. This parameter is required.
 The branch to which the code should be pushed. This parameter is not required, and if omitted, will assume a value of "main".
 
 ### directory
-
 The source directory that should be merged with the destination repository. This parameter is required.
+
+### remote-directory
+The remote directory that the code should be pushed to in the destination repository. This parameter is not required. If it is omitted, then the code will be pushed at the top-level directory of the destination repository.
 
 ### filter
 

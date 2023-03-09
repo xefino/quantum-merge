@@ -28,5 +28,7 @@ The source directory that should be merged with the destination repository. This
 The remote directory that the code should be pushed to in the destination repository. This parameter is not required. If it is omitted, then the code will be pushed at the top-level directory of the destination repository.
 
 ### filter
-
 A filter to apply to files cloned from the destination repository before copying files from the source directory. This filter is intended to allow for file deletions to be propogated to the destination directory. This paramter will be injected into a find operation of the form `find {directory} -type f \( $filter \) -delete` so this parameter allows for fairly flexible file filtering. For more information on find, see this [blog post](https://math2001.github.io/article/bashs-find-command/).
+
+### commit-message
+The message to use for the commit. This value will default to the latest commit message on the repository that is running this action.
